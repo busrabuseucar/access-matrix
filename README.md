@@ -1,5 +1,11 @@
 # AccessMatrix
 
+## Canlı demonun kapsamı
+
+[Demoyu aç](https://access-matrix-buse.sleek-brush-8818.chatgpt.site)
+
+Sentetik kimlikler ve kayıtlarla sunucu tarafı erişim kararlarını deneyebilirsin. API gerçekten çalışır; demo yöneticisini herkes seçebilir. Gerçek kullanıcı kimlik doğrulaması ve üretim hesabı yönetimi içermez.
+
 Rol, kayıt sahipliği ve organizasyon sınırlarını **gerçek HTTP yanıtlarıyla** gösteren TypeScript yetkilendirme laboratuvarı. Backend her istekte karar verir; arayüzde düğme gizlemek izin kontrolü sayılmaz.
 
 **Geliştiren:** Büşra Buse Uçar · Kişisel yetkilendirme laboratuvarı.
