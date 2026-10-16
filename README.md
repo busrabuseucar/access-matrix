@@ -118,3 +118,7 @@ Kaynak ZIP yalnızca tanımlı kök dosyaları ve kaynak dizinlerindeki izinli u
 - [MDN: Set-Cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie) — çerez özellikleri.
 
 MIT lisansı.
+
+## İşletim
+
+[İşletim ve sürüm doğrulama](docs/OPERATIONS.md) — kurulum, veri saklama, yayın, geri dönüş ve doğrulama kapsamı.
