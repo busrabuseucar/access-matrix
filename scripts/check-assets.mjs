@@ -1,0 +1,10 @@
+import {readFile,access} from 'node:fs/promises';
+import app from '../dist/server/index.js';
+import {ASSETS} from '../dist/server/assets.js';
+if(typeof app.fetch!=='function')throw Error('Worker must export fetch.');
+const html=await readFile('public/index.html','utf8');
+for(const m of html.matchAll(/(?:src|href)="(\/[^"#?]*)"/g))if(!ASSETS[m[1]])throw Error('Missing embedded asset '+m[1]);
+for(const file of ['index.js','policy.js','session.js','assets.js'])await access('dist/server/'+file);
+if(/import\s+.*from\s+['"]/.test(Buffer.from(ASSETS['/app.js'].body,'base64').toString()))throw Error('Client unexpectedly imports server code.');
+const config=JSON.parse(await readFile('.openai/hosting.json','utf8'));if(config.static)throw Error('Worker cannot use static hosting configuration.');
+console.log('Worker entrypoint, embedded asset routes and client isolation verified.');

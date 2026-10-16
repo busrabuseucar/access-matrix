@@ -1,0 +1,10 @@
+import {rm,mkdir,readFile,writeFile,cp} from 'node:fs/promises';
+import {spawnSync} from 'node:child_process';
+await rm('dist',{recursive:true,force:true});await mkdir('dist',{recursive:true});
+const result=spawnSync(process.execPath,['node_modules/typescript/bin/tsc'],{stdio:'inherit'});if(result.status!==0)process.exit(result.status??1);
+const pack=spawnSync('python3',['scripts/package-source.py'],{stdio:'inherit'});if(pack.status!==0)process.exit(pack.status??1);
+const paths=[['/','public/index.html','text/html;charset=utf-8'],['/styles.css','public/styles.css','text/css;charset=utf-8'],['/favicon.svg','public/favicon.svg','image/svg+xml'],['/app.js','dist/client/app.js','text/javascript;charset=utf-8'],['/download/access-matrix-source.zip','dist/download/access-matrix-source.zip','application/zip']];
+const assets={};for(const [url,path,type] of paths)assets[url]={type,body:(await readFile(path)).toString('base64')};
+await writeFile('dist/server/assets.js','export const ASSETS = '+JSON.stringify(assets)+';\n');
+await mkdir('dist/.openai',{recursive:true});await cp('.openai/hosting.json','dist/.openai/hosting.json');
+console.log('Worker ESM, embedded client assets and source ZIP built.');
